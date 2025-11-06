@@ -3,7 +3,8 @@ import pygame
 import pygame.locals
 from utils import write
 from button import Button
-import data_input
+import directory
+
 
 pygame.init()
 
@@ -35,7 +36,7 @@ def main():
 
         draw(screen)
         if state == 0:
-            write(screen, "Welcome!", (255, 255, 255), 100, 100)
+            write(screen, "Welcome!", (255, 255, 255), 50, 100, 100)
             button1.update()
 
         if state == 1:

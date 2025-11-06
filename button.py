@@ -16,7 +16,7 @@ class Button:
 
     def update(self):
         pygame.draw.rect(self.surface, self.color, (self.x, self.y, self.w, self.h))
-        write(self.surface, self.text, (24, 78, 0), self.x, self.y)
+        write(self.surface, self.text, (24, 78, 0), 30, self.x+(self.w/6), self.y+(self.h/4))
 
     def point_inside(self, x: float, y: float) -> bool:
         if self.x < x < self.x + self.w and self.y < y < self.y + self.h:
