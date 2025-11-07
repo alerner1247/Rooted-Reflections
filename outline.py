@@ -1,5 +1,4 @@
 # Welcome
-
 # Here we want a pygame screen that says welcome, and a button that takes us to the next page
 
 # Choose if you want to input data or view garden
