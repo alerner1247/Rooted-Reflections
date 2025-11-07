@@ -9,7 +9,7 @@ def write(surface, text, font, color, x, y):
     surface.blit(text_surface, (x, y))
 
 def draw(screen: pygame.Surface):
-    screen.fill("#000000")
+    screen.fill("#FFC8C8")
 
 class button():
     0
