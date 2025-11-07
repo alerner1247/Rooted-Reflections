@@ -18,7 +18,7 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((width, height))
 
-    button1 = Button("get started!", screen, (255, 255, 255), 100, 250)
+    button1 = Button("let's get started", screen, (255, 255, 255), 100, 250)
     state = 0
 
     while True:
@@ -40,7 +40,7 @@ def main():
             button1.update()
 
         if state == 1:
-            data_input
+            directory
 
         pygame.display.flip()
         fps_clock.tick(fps)
