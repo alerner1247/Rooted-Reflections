@@ -1,50 +1,55 @@
-import sys
-
-import pygame as pg
-import pygame.locals
+import tkinter as tk
+from tkinter import messagebox
 
 
-bg_color = "#FAC2C2"
-text_color = pg.Color("black")
-box_color = pg.Color("white")
-highlight = pg.Color("#F9C4C4")
-font = pg.font.Font(None, 32)
-
-
-
-class Textbox:
-    def __init__(self, x, y, w, h, label):
-        self.rect = pg.Rect(x, y, w, h)
-        self.color = box_color
-        self.text = ""
-        self.txt_surface = font.render(self.text, True, text_color)
-        self.active = False
-        self.label = font.render(label, True, text_color)
-        
-    def draw(screen: pygame.Surface):
-        screen.fill("#F8B4B4")
-
+def submit():
+    rose = rose_entry.get()
+    bud = bud_entry.get()
+    thorn = thorn_entry.get()
+    mood = mood_var.get()
 
 
 def main():
-    fps = 60
-    fps_clock = pygame.time.Clock()
-    width, height = 500, 500
-    pygame.init()
-    screen = pygame.display.set_mode((width, height))
+    global rose_entry, bud_entry, thorn_entry, mood_var
 
-    
+    root = tk.Tk()
+    root.title("Rooted Reflections")
+    root.geometry("450x400")
+    root.configure(bg="#F8B4B4")
 
+    header = tk.Label(root, text="Rooted Reflections", font=("Arial", 18, "bold"), bg="#F8B4B4")
+    header.pack(pady=15)
 
-    for event in pygame.event.get():
-        if event.type == pygame.locals.QUIT:
-            pygame.quit()
-            sys.exit()
+    # Frame 
+    frame = tk.Frame(root, bg="#F8B4B4")
+    frame.pack(pady=10)
 
-        draw(screen)
+    # Rose
+    tk.Label(frame, text="Rose:", font=("Arial", 12), bg="#F8B4B4").grid(row=0, column=0, sticky="e", padx=10, pady=5)
+    rose_entry = tk.Entry(frame, width=30)
+    rose_entry.grid(row=0, column=1, pady=5)
 
-        pygame.display.flip()
-        fps_clock.tick(fps)
+    # Bud
+    tk.Label(frame, text="Bud:", font=("Arial", 12), bg="#F8B4B4").grid(row=1, column=0, sticky="e", padx=10, pady=5)
+    bud_entry = tk.Entry(frame, width=30)
+    bud_entry.grid(row=1, column=1, pady=5)
+
+    # Thorn
+    tk.Label(frame, text="Thorn:", font=("Arial", 12), bg="#F8B4B4").grid(row=2, column=0, sticky="e", padx=10, pady=5)
+    thorn_entry = tk.Entry(frame, width=30)
+    thorn_entry.grid(row=2, column=1, pady=5)
+
+    # Mood dropdown
+    tk.Label(frame, text="Mood:", font=("Arial", 12), bg="#F8B4B4").grid(row=3, column=0, sticky="e", padx=10, pady=5)
+    mood_var = tk.StringVar(value="Happy")
+    mood_options = ["Happy", "Tired", "Sad", "Excited", "Calm", "Worried", "Joyous", "Cool", "Angered", "Overstimulated", "Helpless"]
+    mood_dropdown = tk.OptionMenu(frame, mood_var, mood_options)
+    mood_dropdown.grid(row=3, column=1, pady=5)
+
+    # Submit button
+    submit_btn = tk.Button(root, text="Submit Reflection", font=("Arial", 12, "bold"), bg="white", command=submit)
+    submit_btn.pack(pady=20)
+    root.mainloop()
 
 
 if __name__ == "__main__":
