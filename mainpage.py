@@ -23,9 +23,9 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((width, height))
 
-    button1 = Button("let's get started", screen, (255, 255, 255), 100, 250)
+    button1 = Button("let's get started", screen, (255, 255, 255), 75, 250)
     button2 = Button("your garden", screen, (0, 0, 0), 50, 250)
-    button3 = Button("rose, bud, thorn", screen, (0, 0, 0), 250, 250)
+    button3 = Button("rose, bud, thorn", screen, (0, 0, 0), 280, 250)
     state = 0
 
     while True:
@@ -50,7 +50,7 @@ def main():
         if state == 1:
             draw_directory(screen, button2, button3)
         if state == 2:
-            ...
+            draw_draw_input(screen, button3, button4, button5)
         if state == 3: 
             ...
 
