@@ -50,7 +50,7 @@ def main():
         if state == 1:
             draw_directory(screen, button2, button3)
         if state == 2:
-            draw_draw_input(screen, button3, button4, button5)
+            ...
         if state == 3: 
             ...
 
