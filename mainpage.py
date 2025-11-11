@@ -12,7 +12,7 @@ def draw(screen: pygame.Surface, button1: Button):
     button1.update()
 
 def draw_directory(screen: pygame.Surface, button2: Button, button3: Button):
-    screen.fill("#ffffff")
+    screen.fill("#fcb7b7")
     write(screen, "directory", (0, 0, 0), 50, 150, 100)
     button2.update()
     button3.update()
