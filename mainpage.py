@@ -3,6 +3,7 @@ import pygame
 import pygame.locals
 from utils import write
 from button import Button
+from garden import Flower
  
 pygame.init()
 
@@ -15,6 +16,8 @@ def draw_directory(screen: pygame.Surface, button2: Button, button3: Button):
     write(screen, "directory", (0, 0, 0), 50, 150, 100)
     button2.update()
     button3.update()
+def draw_graden(screen: pygame.Surface, flower_1: Flower, flower_2: Flower, flower_3: Flower, flower_4: Flower, flower_7: Flower):
+    screen.fill()
 
 def main():
     fps = 60
@@ -23,8 +26,8 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((width, height))
 
-    button1 = Button("let's get started", screen, (255, 255, 255), 75, 250)
-    button2 = Button("your garden", screen, (0, 0, 0), 50, 250)
+    button1 = Button("let's get started", screen, (255, 200, 255), 75, 250)
+    button2 = Button("your garden", screen, (200, 200, 200), 50, 250)
     button3 = Button("rose, bud, thorn", screen, (0, 0, 0), 280, 250)
     state = 0
 
