@@ -42,8 +42,8 @@ def main():
     # Mood dropdown
     tk.Label(frame, text="Mood:", font=("Arial", 12), bg="#F8B4B4").grid(row=3, column=0, sticky="e", padx=10, pady=5)
     mood_var = tk.StringVar(value="Happy")
-    mood_options = ["Happy", "Tired", "Sad", "Excited", "Calm", "Worried", "Joyous", "Cool", "Angered", "Overstimulated", "Helpless"]
-    mood_dropdown = tk.OptionMenu(frame, mood_var, mood_options)
+    mood_options = ["Happy","Tired", "Sad", "Excited", "Calm", "Worried", "Joyous", "Cool", "Angered", "Overstimulated", "Helpless"]
+    mood_dropdown = tk.OptionMenu(frame, mood_var, *mood_options)
     mood_dropdown.grid(row=3, column=1, pady=5)
 
     # Submit button

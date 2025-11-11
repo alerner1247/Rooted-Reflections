@@ -11,7 +11,7 @@ def draw(screen: pygame.Surface, button1: Button):
     button1.update()
 
 def draw_directory(screen: pygame.Surface, button2: Button, button3: Button):
-    screen.fill("#ffffff")
+    screen.fill("#fcb7b7")
     write(screen, "directory", (0, 0, 0), 50, 150, 100)
     button2.update()
     button3.update()
@@ -23,8 +23,8 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((width, height))
 
-    button1 = Button("let's get started", screen, (255, 255, 255), 100, 250)
-    button2 = Button("your garden", screen, (0, 0, 0), 50, 250)
+    button1 = Button("let's get started", screen, (255, 200, 255), 100, 250)
+    button2 = Button("your garden", screen, (200, 200, 200), 50, 250)
     button3 = Button("rose, bud, thorn", screen, (0, 0, 0), 250, 250)
     state = 0
 
