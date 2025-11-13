@@ -2,6 +2,7 @@ import sys
 import math
 import pygame
 import pygame.locals
+import random
 
 pygame.init()
 
@@ -59,7 +60,7 @@ def main():
     width, height = 500, 500
     pygame.init()
     screen = pygame.display.set_mode((width, height))
-    flower_1 = Flower(50, 30, screen, "#6495ED", 100, 100)
+    flower_1 = Flower(30, 30, screen, color, 100, 100)
 
     while True:
         for event in pygame.event.get():

@@ -23,9 +23,12 @@ def draw_directory(screen: pygame.Surface, button2: Button, button3: Button):
 def draw_graden(screen: pygame.Surface, Flowers:list):
     screen.fill("#000000")
     for flower in Flowers:
-        if input_1 == sad:
+        if input == sad:
             flower.update.sad
-        if input_1 == 
+        if input == happy:
+            flower.update.happy
+        if input == angry:
+            flower.update.angry
 
 
 def main():
