@@ -4,20 +4,29 @@ import pygame.locals
 from utils import write
 from button import Button
 from garden import Flower
- 
+
 pygame.init()
+
 
 def draw(screen: pygame.Surface, button1: Button):
     write(screen, "Welcome!", (255, 255, 255), 50, 100, 100)
     button1.update()
+
 
 def draw_directory(screen: pygame.Surface, button2: Button, button3: Button):
     screen.fill("#fcb7b7")
     write(screen, "directory", (0, 0, 0), 50, 150, 100)
     button2.update()
     button3.update()
-def draw_graden(screen: pygame.Surface, flower_1: Flower, flower_2: Flower, flower_3: Flower, flower_4: Flower, flower_7: Flower):
-    screen.fill()
+
+
+def draw_graden(screen: pygame.Surface, Flowers:list):
+    screen.fill("#000000")
+    for flower in Flowers:
+        if input_1 == sad:
+            flower.update.sad
+        if input_1 == 
+
 
 def main():
     fps = 60
@@ -25,7 +34,6 @@ def main():
     width, height = 500, 500
     pygame.init()
     screen = pygame.display.set_mode((width, height))
-
 
     button1 = Button("let's get started", screen, (255, 200, 255), 100, 250)
     button2 = Button("your garden", screen, (200, 200, 200), 50, 250)
@@ -43,8 +51,8 @@ def main():
                     if button1.point_inside(x, y):
                         state = 1
                 elif state == 1:
-                   if button2.point_inside(x,y):
-                       state = 2
+                    if button2.point_inside(x, y):
+                        state = 2
                 elif state == 1:
                     if button3.point_inside(x, y):
                         state = 3
@@ -55,10 +63,9 @@ def main():
             draw_directory(screen, button2, button3)
         if state == 2:
             ...
-        if state == 3: 
+        if state == 3:
             ...
 
-        
         pygame.display.flip()
         fps_clock.tick(fps)
 
