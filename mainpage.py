@@ -8,12 +8,15 @@ from data_input import InputBox
 pygame.init()
 
 def draw(screen: pygame.Surface, button1: Button):
+    screen.fill("#fcb7b7")
+    pygame.display.set_caption("Rooted Reflections")
     write(screen, "Welcome!", (255, 255, 255), 50, 100, 100)
     button1.update()
 
 
 def draw_directory(screen: pygame.Surface, button2: Button, button3: Button):
     screen.fill("#fcb7b7")
+    pygame.display.set_caption("Rooted Reflections")
     write(screen, "directory", (0, 0, 0), 50, 150, 100)
     button2.update()
     button3.update()
@@ -37,7 +40,6 @@ def draw_input(screen: pygame.Surface, rose_box: InputBox, bud_box: InputBox, th
     screen.blit(font.render("overstimulated, excited,", True, (0, 0, 0)), (80, 285))
     screen.blit(font.render("calm, annoyed, nervous, bored)", True, (0, 0, 0)), (80, 310))
 
-
     rose_box.draw(screen)
     bud_box.draw(screen)
     thorn_box.draw(screen)
@@ -51,9 +53,9 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((width, height))
 
-    button1 = Button("let's get started", screen, (255, 200, 255), 100, 250)
-    button2 = Button("your garden", screen, (200, 200, 200), 50, 250)
-    button3 = Button("rose, bud, thorn", screen, (0, 0, 0), 250, 250)
+    button1 = Button("let's get started", screen, (255, 255, 255), 100, 250)
+    button2 = Button("your garden", screen, (200, 200, 200), 30, 250)
+    button3 = Button("rose, bud, thorn", screen, "#ffffff", 280, 250)
     state = 0
     rose_box = InputBox(150, 80, 250, 30)
     bud_box = InputBox(150, 130, 250, 30)
@@ -90,7 +92,8 @@ def main():
         elif state == 2:
             draw_input(screen, rose_box, bud_box, thorn_box, mood_box)
         elif state == 3:
-            ...
+            if mood_box == "sad":
+                
 
         pygame.display.flip()
         fps_clock.tick(fps)
