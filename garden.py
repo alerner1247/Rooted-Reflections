@@ -60,7 +60,7 @@ def main():
     width, height = 500, 500
     pygame.init()
     screen = pygame.display.set_mode((width, height))
-    flower_1 = Flower(30, 30, screen, color=Color, 100, 100)
+    flower_1 = Flower(30, 30, screen, , 100, 100)
 
     while True:
         for event in pygame.event.get():

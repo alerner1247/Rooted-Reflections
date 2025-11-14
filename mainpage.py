@@ -26,7 +26,6 @@ def draw_input(screen: pygame.Surface, rose_box: InputBox, bud_box: InputBox, th
     pygame.display.set_caption("Rooted Reflections")
 
     font = pygame.font.SysFont("Arial", 18)
-    small_font = pygame.font.SysFont("Arial", 14)
     
     title_font = pygame.font.SysFont("Arial", 28, bold=True)
     title_text = title_font.render("Reflect on your day:", True, (0, 0, 0))
@@ -45,6 +44,7 @@ def draw_input(screen: pygame.Surface, rose_box: InputBox, bud_box: InputBox, th
     thorn_box.draw(screen)
     mood_box.draw(screen)
 
+
 def main():
     print("yo")
     fps = 60
@@ -62,6 +62,7 @@ def main():
     thorn_box = InputBox(150, 180, 250, 30)
     mood_box = InputBox(150, 230, 250, 30)
 
+    emotions = [mood_box.text]
 
     while True:
         for event in pygame.event.get():
@@ -76,14 +77,15 @@ def main():
                         state = 1
                 elif state == 1:
                     if button2.point_inside(x, y):
+                        # store form data
                         state = 3
                     if button3.point_inside(x, y):
                         state = 2
-                elif state == 2:
-                    rose_box.handle_event(event)
-                    bud_box.handle_event(event)
-                    thorn_box.handle_event(event)
-                    mood_box.handle_event(event)
+            if state == 2:
+                rose_box.handle_event(event)
+                bud_box.handle_event(event)
+                thorn_box.handle_event(event)
+                mood_box.handle_event(event)
 
         if state == 0:
             draw(screen, button1)
@@ -91,9 +93,10 @@ def main():
             draw_directory(screen, button2, button3)
         elif state == 2:
             draw_input(screen, rose_box, bud_box, thorn_box, mood_box)
+            
+
         elif state == 3:
-            if mood_box == "sad":
-                
+            ...
 
         pygame.display.flip()
         fps_clock.tick(fps)
