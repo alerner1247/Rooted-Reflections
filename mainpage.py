@@ -19,7 +19,7 @@ def draw_directory(screen: pygame.Surface, button2: Button, button3: Button):
     button3.update()
 
 def draw_input(screen: pygame.Surface, rose_box: InputBox, bud_box: InputBox, thorn_box: InputBox, mood_box: InputBox):
-    screen = pygame.display.set_mode((500, 400))
+    screen.fill("#fcb7b7")
     pygame.display.set_caption("Rooted Reflections")
 
     font = pygame.font.SysFont("Arial", 18)
@@ -29,11 +29,6 @@ def draw_input(screen: pygame.Surface, rose_box: InputBox, bud_box: InputBox, th
     title_text = title_font.render("Reflect on your day:", True, (0, 0, 0))
     screen.blit(title_text, (130, 30))
 
-    rose_box.handle_event(pygame.locals.MOUSEBUTTONDOWN)
-    bud_box.handle_event(pygame.locals.MOUSEBUTTONDOWN)
-    thorn_box.handle_event(pygame.locals.MOUSEBUTTONDOWN)
-    mood_box.handle_event(pygame.locals.MOUSEBUTTONDOWN)
-
     screen.blit(font.render("Rose:", True, (0, 0, 0)), (80, 85))
     screen.blit(font.render("Bud:", True, (0, 0, 0)), (80, 135))
     screen.blit(font.render("Thorn:", True, (0, 0, 0)), (80, 185))
@@ -42,7 +37,14 @@ def draw_input(screen: pygame.Surface, rose_box: InputBox, bud_box: InputBox, th
     screen.blit(font.render("overstimulated, excited,", True, (0, 0, 0)), (80, 285))
     screen.blit(font.render("calm, annoyed, nervous, bored)", True, (0, 0, 0)), (80, 310))
 
+
+    rose_box.draw(screen)
+    bud_box.draw(screen)
+    thorn_box.draw(screen)
+    mood_box.draw(screen)
+
 def main():
+    print("yo")
     fps = 60
     fps_clock = pygame.time.Clock()
     width, height = 500, 500
@@ -58,6 +60,7 @@ def main():
     thorn_box = InputBox(150, 180, 250, 30)
     mood_box = InputBox(150, 230, 250, 30)
 
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.locals.QUIT:
@@ -71,18 +74,22 @@ def main():
                         state = 1
                 elif state == 1:
                     if button2.point_inside(x, y):
-                        state = 2
-                elif state == 1:
-                    if button3.point_inside(x, y):
                         state = 3
+                    if button3.point_inside(x, y):
+                        state = 2
+                elif state == 2:
+                    rose_box.handle_event(event)
+                    bud_box.handle_event(event)
+                    thorn_box.handle_event(event)
+                    mood_box.handle_event(event)
 
         if state == 0:
             draw(screen, button1)
-        if state == 1:
+        elif state == 1:
             draw_directory(screen, button2, button3)
-        if state == 2:
+        elif state == 2:
             draw_input(screen, rose_box, bud_box, thorn_box, mood_box)
-        if state == 3:
+        elif state == 3:
             ...
 
         pygame.display.flip()

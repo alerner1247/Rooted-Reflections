@@ -40,48 +40,52 @@ class InputBox:
         txt_surface = small_font.render(self.text, True, (0, 0, 0))
         screen.blit(txt_surface, (self.rect.x + 5, self.rect.y + 5))
 
-# Input boxes
-rose_box = InputBox(150, 80, 250, 30)
-bud_box = InputBox(150, 130, 250, 30)
-thorn_box = InputBox(150, 180, 250, 30)
-mood_box = InputBox(150, 230, 250, 30)
+def main():
+    # Input boxes
+    rose_box = InputBox(150, 80, 250, 30)
+    bud_box = InputBox(150, 130, 250, 30)
+    thorn_box = InputBox(150, 180, 250, 30)
+    mood_box = InputBox(150, 230, 250, 30)
 
-# Main Loop
-running = True
-while running:
-    screen.fill((248, 180, 180))
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-        rose_box.handle_event(event)
-        bud_box.handle_event(event)
-        thorn_box.handle_event(event)
-        mood_box.handle_event(event)
+    # Main Loop
+    running = True
+    while running:
+        screen.fill((248, 180, 180))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            rose_box.handle_event(event)
+            bud_box.handle_event(event)
+            thorn_box.handle_event(event)
+            mood_box.handle_event(event)
 
-    #Title
-    title_font = pygame.font.SysFont("Arial", 28, bold=True)
-    title_text = title_font.render("Reflect on your day:", True, (0, 0, 0))
-    screen.blit(title_text, (130, 30))
-
-
-    # Labels
-    screen.blit(font.render("Rose:", True, (0, 0, 0)), (80, 85))
-    screen.blit(font.render("Bud:", True, (0, 0, 0)), (80, 135))
-    screen.blit(font.render("Thorn:", True, (0, 0, 0)), (80, 185))
-    screen.blit(font.render("Mood: ", True, (0, 0, 0)), (80, 235))
-    screen.blit(font.render("(enter either happy, sad, angered, worried,", True, (0, 0, 0)), (80, 260))
-    screen.blit(font.render("overstimulated, excited,", True, (0, 0, 0)), (80, 285))
-    screen.blit(font.render("calm, annoyed, nervous, bored)", True, (0, 0, 0)), (80, 310))
+        #Title
+        title_font = pygame.font.SysFont("Arial", 28, bold=True)
+        title_text = title_font.render("Reflect on your day:", True, (0, 0, 0))
+        screen.blit(title_text, (130, 30))
 
 
-    # Draw boxes
-    rose_box.draw(screen)
-    bud_box.draw(screen)
-    thorn_box.draw(screen)
-    mood_box.draw(screen)
-   
+        # Labels
+        screen.blit(font.render("Rose:", True, (0, 0, 0)), (80, 85))
+        screen.blit(font.render("Bud:", True, (0, 0, 0)), (80, 135))
+        screen.blit(font.render("Thorn:", True, (0, 0, 0)), (80, 185))
+        screen.blit(font.render("Mood: ", True, (0, 0, 0)), (80, 235))
+        screen.blit(font.render("(enter either happy, sad, angered, worried,", True, (0, 0, 0)), (80, 260))
+        screen.blit(font.render("overstimulated, excited,", True, (0, 0, 0)), (80, 285))
+        screen.blit(font.render("calm, annoyed, nervous, bored)", True, (0, 0, 0)), (80, 310))
 
 
-    pygame.display.flip()
-    clock.tick(60)
+        # Draw boxes
+        rose_box.draw(screen)
+        bud_box.draw(screen)
+        thorn_box.draw(screen)
+        mood_box.draw(screen)
+    
+
+
+        pygame.display.flip()
+        clock.tick(60)
+
+if __name__ == "__main__":
+    main()
