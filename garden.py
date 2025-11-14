@@ -3,6 +3,7 @@ import math
 import pygame
 import pygame.locals
 
+
 pygame.init()
 
 class Flower:
@@ -48,7 +49,8 @@ class Flower:
             return True
         else:
             return False
-
+def Color():
+    if 
 def draw(screen: pygame.Surface, flower_1: Flower):
     screen.fill("#000000")
     flower_1.update()
@@ -59,7 +61,7 @@ def main():
     width, height = 500, 500
     pygame.init()
     screen = pygame.display.set_mode((width, height))
-    flower_1 = Flower(50, 30, screen, "#6495ED", 100, 100)
+    flower_1 = Flower(30, 30, screen, color=Color, 100, 100)
 
     while True:
         for event in pygame.event.get():

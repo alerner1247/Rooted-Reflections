@@ -71,8 +71,8 @@ while running:
     screen.blit(font.render("Thorn:", True, (0, 0, 0)), (80, 185))
     screen.blit(font.render("Mood: ", True, (0, 0, 0)), (80, 235))
     screen.blit(font.render("(enter either happy, sad, angered, worried,", True, (0, 0, 0)), (80, 260))
-    screen.blit(font.render("overstimulated, excited, cheery, depressed,", True, (0, 0, 0)), (80, 285))
-    screen.blit(font.render("calm, helpless, annoyed, nervous, bored)", True, (0, 0, 0)), (80, 310))
+    screen.blit(font.render("overstimulated, excited,", True, (0, 0, 0)), (80, 285))
+    screen.blit(font.render("calm, annoyed, nervous, bored)", True, (0, 0, 0)), (80, 310))
 
 
     # Draw boxes
