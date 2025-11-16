@@ -7,10 +7,10 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Button Music Player")
 
 
-white = (255, 255, 255)
-blue = (100, 150, 255)
+white = (255,255,255)
+pink = (255, 150, 190)
 
-#buttonbasicstepup
+#button basic setup
 button_rect = pygame.Rect(175, 150, 150, 60)  # x, y, width, height
 font = pygame.font.Font(None, 40)
 
@@ -22,7 +22,7 @@ while running:
     screen.fill(white)
 
     # daw button
-    pygame.draw.rect(screen, blue, button_rect, border_radius=10)
+    pygame.draw.rect(screen, pink, button_rect, border_radius = 10)
 
     # draw text
     text = font.render("Play Music", True, white)

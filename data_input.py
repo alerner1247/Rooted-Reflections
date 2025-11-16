@@ -9,10 +9,9 @@ font = pygame.font.SysFont("Arial", 18)
 small_font = pygame.font.SysFont("Arial", 14)
 clock = pygame.time.Clock()
 stored_text = ""
+
+
 #Textbox class
-
-
-
 class InputBox:
     def __init__(self, x, y, w, h):
         self.rect = pygame.Rect(x, y, w, h)
@@ -41,12 +40,22 @@ class InputBox:
         txt_surface = small_font.render(self.text, True, (0, 0, 0))
         screen.blit(txt_surface, (self.rect.x + 5, self.rect.y + 5))
 
+
+
+
+
 def main():
     # Input boxes
     rose_box = InputBox(150, 80, 250, 30)
     bud_box = InputBox(150, 130, 250, 30)
     thorn_box = InputBox(150, 180, 250, 30)
     mood_box = InputBox(150, 230, 250, 30)
+
+    submit_rect = pygame.Rect(200, 340, 100, 35)
+    rose_input = ""
+    bud_input = ""
+    thorn_input = ""
+    mood_input = ""
 
     # Main Loop
     running = True
@@ -60,6 +69,18 @@ def main():
             bud_box.handle_event(event)
             thorn_box.handle_event(event)
             mood_box.handle_event(event)
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if submit_rect.collidepoint(event.pos):
+                    rose_input = rose_box.text
+                    bud_input = bud_box.text
+                    thorn_input = thorn_box.text
+                    mood_input = mood_box.text
+
+                    print("Rose:", rose_input)
+                    print("Bud:", bud_input)
+                    print("Thorn:", thorn_input)
+                    print("Mood:", mood_input)
 
         #Title
         title_font = pygame.font.SysFont("Arial", 28, bold=True)
@@ -81,7 +102,13 @@ def main():
         bud_box.draw(screen)
         thorn_box.draw(screen)
         mood_box.draw(screen)
-    
+
+        pygame.draw.rect(screen, (255, 255, 255), submit_rect)
+        pygame.draw.rect(screen, (0, 0, 0), submit_rect, 2)
+        submit_text = font.render("Submit", True, (0, 0, 0))
+        screen.blit(submit_text, (submit_rect.x + 15, submit_rect.y + 7))
+
+
         pygame.display.flip()
         clock.tick(60)
 
