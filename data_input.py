@@ -9,10 +9,9 @@ font = pygame.font.SysFont("Arial", 18)
 small_font = pygame.font.SysFont("Arial", 14)
 clock = pygame.time.Clock()
 stored_text = ""
+
+
 #Textbox class
-
-
-
 class InputBox:
     def __init__(self, x, y, w, h):
         self.rect = pygame.Rect(x, y, w, h)
@@ -71,7 +70,7 @@ def main():
             thorn_box.handle_event(event)
             mood_box.handle_event(event)
 
-        if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONDOWN:
                 if submit_rect.collidepoint(event.pos):
                     rose_input = rose_box.text
                     bud_input = bud_box.text
@@ -103,7 +102,11 @@ def main():
         bud_box.draw(screen)
         thorn_box.draw(screen)
         mood_box.draw(screen)
-    
+
+        pygame.draw.rect(screen, (255, 255, 255), submit_rect)
+        pygame.draw.rect(screen, (0, 0, 0), submit_rect, 2)
+        submit_text = font.render("Submit", True, (0, 0, 0))
+        screen.blit(submit_text, (submit_rect.x + 15, submit_rect.y + 7))
 
 
         pygame.display.flip()
