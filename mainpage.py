@@ -4,6 +4,9 @@ import pygame.locals
 from utils import write
 from button import Button
 from data_input import InputBox
+from garden import Flower
+import pickle
+import os 
 
 pygame.init()
 
@@ -21,7 +24,7 @@ def draw_directory(screen: pygame.Surface, button2: Button, button3: Button):
     button2.update()
     button3.update()
 
-def draw_input(screen: pygame.Surface, rose_box: InputBox, bud_box: InputBox, thorn_box: InputBox, mood_box: InputBox):
+def draw_input(screen: pygame.Surface, rose_box: InputBox, bud_box: InputBox, thorn_box: InputBox, mood_box: InputBox, submit_button: Button):
     screen.fill("#fcb7b7")
     pygame.display.set_caption("Rooted Reflections")
 
@@ -39,14 +42,40 @@ def draw_input(screen: pygame.Surface, rose_box: InputBox, bud_box: InputBox, th
     screen.blit(font.render("overstimulated, excited,", True, (0, 0, 0)), (80, 285))
     screen.blit(font.render("calm, annoyed, nervous, bored)", True, (0, 0, 0)), (80, 310))
 
+    submit_button.update()
     rose_box.draw(screen)
     bud_box.draw(screen)
     thorn_box.draw(screen)
     mood_box.draw(screen)
 
+def draw_garden(screen, flower1: Flower):
+    screen.fill("#ffffff")
+    flower1.update()
+    """flower2.update()
+    flower3.update()
+    flower4.update()
+    flower5.update()
+    flower6.update()
+    flower7.update(), flower2: Flower, flower3: Flower, flower4: Flower, flower5: Flower, flower6: Flower, flower7: Flower"""
 
+def draw_info(screen):
+    screen.fill("#000000")
+    if os.path.exists("stored_text.pkl"):
+        with open("stored_text.pkl", "rb") as f:
+            data = pickle.load(f)
+    else:
+        data = []
+    if len(data) > 7:
+        data = data[-6:]
+    text = input("what is your current emotion?\n")
+    data.append(text)
+    print(data)
+    with open("stored_text.pkl", "wb") as f:
+        pickle.dump(data, f)
+    
+    write(screen, data, "#ffffff", 20, 100, 100)
+    
 def main():
-    print("yo")
     fps = 60
     fps_clock = pygame.time.Clock()
     width, height = 500, 500
@@ -61,8 +90,10 @@ def main():
     bud_box = InputBox(150, 130, 250, 30)
     thorn_box = InputBox(150, 180, 250, 30)
     mood_box = InputBox(150, 230, 250, 30)
-
-    emotions = [mood_box.text]
+    submit_button = Button("submit", screen, (255, 255, 255), 250, 400)
+    emotion_colors = {"happy": "#F88379", "sad": "#0047AB", "angered": "#8B0000", "excited": "#FFEA00", "calm":"#6F8FAF", "annoyed":"#AA4A44", "nervous": "#AFE1AF", "bored":"#B2BEB5"}
+    flower1 = None
+    
 
     while True:
         for event in pygame.event.get():
@@ -81,22 +112,32 @@ def main():
                         state = 3
                     if button3.point_inside(x, y):
                         state = 2
+                elif state == 3:
+                    if flower1.point_inside(x, y):
+                        state = 4
             if state == 2:
                 rose_box.handle_event(event)
                 bud_box.handle_event(event)
                 thorn_box.handle_event(event)
                 mood_box.handle_event(event)
-
+                if submit_button.point_inside(x, y):
+                    if mood_box.text in emotion_colors:
+                        flower1 = Flower(30, 30, screen, emotion_colors[mood_box.text], 100, 100)
+                    state = 3
+            
+                
+                
         if state == 0:
             draw(screen, button1)
         elif state == 1:
             draw_directory(screen, button2, button3)
         elif state == 2:
-            draw_input(screen, rose_box, bud_box, thorn_box, mood_box)
-            
-
+            draw_input(screen, rose_box, bud_box, thorn_box, mood_box, submit_button)
         elif state == 3:
-            ...
+            draw_garden(screen, flower1)
+        elif state == 4:
+            draw_info(screen)
+
 
         pygame.display.flip()
         fps_clock.tick(fps)
