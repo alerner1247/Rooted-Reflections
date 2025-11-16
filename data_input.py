@@ -8,9 +8,10 @@ pygame.display.set_caption("Rooted Reflections")
 font = pygame.font.SysFont("Arial", 18)
 small_font = pygame.font.SysFont("Arial", 14)
 clock = pygame.time.Clock()
-
-
+stored_text = ""
 #Textbox class
+
+
 
 class InputBox:
     def __init__(self, x, y, w, h):
@@ -20,6 +21,7 @@ class InputBox:
         self.color_inactive = (230, 230, 230)
         self.color_active = (255, 255, 255)
         self.color = self.color_inactive
+    
 
     def handle_event(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -29,10 +31,9 @@ class InputBox:
         elif event.type == pygame.KEYDOWN and self.active:
             if event.key == pygame.K_BACKSPACE:
                 self.text = self.text[:-1]
-            elif event.key == pygame.K_RETURN:
-                self.active = False
             else:
                 self.text += event.unicode
+            
 
     def draw(self, screen):
         pygame.draw.rect(screen, self.color, self.rect)
@@ -94,8 +95,7 @@ def main():
         screen.blit(font.render("Thorn:", True, (0, 0, 0)), (80, 185))
         screen.blit(font.render("Mood: ", True, (0, 0, 0)), (80, 235))
         screen.blit(font.render("(enter either happy, sad, angered, worried,", True, (0, 0, 0)), (80, 260))
-        screen.blit(font.render("overstimulated, excited,", True, (0, 0, 0)), (80, 285))
-        screen.blit(font.render("calm, annoyed, nervous, bored)", True, (0, 0, 0)), (80, 310))
+        screen.blit(font.render("excited, calm, annoyed, nervous, bored)", True, (0, 0, 0)), (80, 285))
 
 
         # Draw boxes
@@ -103,11 +103,8 @@ def main():
         bud_box.draw(screen)
         thorn_box.draw(screen)
         mood_box.draw(screen)
+    
 
-        pygame.draw.rect(screen, (255, 255, 255), submit_rect)
-        pygame.draw.rect(screen, (0, 0, 0), submit_rect, 2)
-        submit_text = font.render("Submit", True, (0, 0, 0))
-        screen.blit(submit_text, (submit_rect.x + 15, submit_rect.y + 7))
 
         pygame.display.flip()
         clock.tick(60)
