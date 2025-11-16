@@ -67,14 +67,14 @@ def draw_info(screen):
         data = []
     if len(data) > 7:
         data = data[-6:]
-    text = input("what is your current emotion?\n")
+    text = input()
     data.append(text)
     print(data)
     with open("stored_text.pkl", "wb") as f:
         pickle.dump(data, f)
     
     write(screen, data, "#ffffff", 20, 100, 100)
-    
+
 def main():
     fps = 60
     fps_clock = pygame.time.Clock()
@@ -93,8 +93,9 @@ def main():
     submit_button = Button("submit", screen, (255, 255, 255), 250, 400)
     emotion_colors = {"happy": "#F88379", "sad": "#0047AB", "angered": "#8B0000", "excited": "#FFEA00", "calm":"#6F8FAF", "annoyed":"#AA4A44", "nervous": "#AFE1AF", "bored":"#B2BEB5"}
     flower1 = None
-    
-
+    rose_box_inputs = []
+    bud_box_inputs = []
+    thorn_box_inputs = []
     while True:
         for event in pygame.event.get():
             if event.type == pygame.locals.QUIT:
@@ -108,7 +109,6 @@ def main():
                         state = 1
                 elif state == 1:
                     if button2.point_inside(x, y):
-                        # store form data
                         state = 3
                     if button3.point_inside(x, y):
                         state = 2
@@ -121,6 +121,9 @@ def main():
                 thorn_box.handle_event(event)
                 mood_box.handle_event(event)
                 if submit_button.point_inside(x, y):
+                    rose_box_inputs.append(rose_box.text)
+                    bud_box_inputs.append(bud_box.text)
+                    thorn_box_inputs.append(thorn_box_inputs)
                     if mood_box.text in emotion_colors:
                         flower1 = Flower(30, 30, screen, emotion_colors[mood_box.text], 100, 100)
                     state = 3
@@ -136,7 +139,19 @@ def main():
         elif state == 3:
             draw_garden(screen, flower1)
         elif state == 4:
-            draw_info(screen)
+            if os.path.exists("stored_text.pkl"):
+                with open("stored_text.pkl", "rb") as f:
+                    data = pickle.load(f)
+            else:
+                data = []
+            if len(data) > 7:
+                data = data[-6:]
+            text = input(rose_box_inputs)
+            data.append(text)
+            print(data)
+            with open("stored_text.pkl", "wb") as f:
+                pickle.dump(data, f)
+    
 
 
         pygame.display.flip()
