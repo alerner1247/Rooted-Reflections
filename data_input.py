@@ -37,8 +37,9 @@ class InputBox:
     def draw(self, screen):
         pygame.draw.rect(screen, self.color, self.rect)
         pygame.draw.rect(screen, (0, 0, 0), self.rect, 2)
-        txt_surface = small_font.render(self.text, True, (0, 0, 0))
-        screen.blit(txt_surface, (self.rect.x + 5, self.rect.y + 5))
+        if len(self.text) > 0:
+            txt_surface = small_font.render("hello", True, (0, 0, 0))
+            screen.blit(txt_surface, (self.rect.x + 5, self.rect.y + 5))
 
 
 

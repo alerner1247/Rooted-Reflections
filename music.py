@@ -8,9 +8,7 @@ class MusicButton():
         self.width, self.height = 500, 400
         self.height = 400
         self.screen = pygame.display.set_mode((self.width, self.height))
-        caption = pygame.display.set_caption("Button Music Player")
-
-
+        self.caption = pygame.display.set_caption("Button Music Player")
         self.white = (255,255,255)
         self.pink = (255, 150, 190)
 
@@ -19,7 +17,7 @@ class MusicButton():
         self.font = pygame.font.Font(None, 40)
 
 
-        pygame.mixer.music.load("/Users/priscillalu/Downloads/lofi.mp3")
+        # pygame.mixer.music.load("/Users/priscillalu/Downloads/lofi.mp3")
 
     def music_running(self):
         running = True

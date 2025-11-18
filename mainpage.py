@@ -24,6 +24,7 @@ def draw_directory(screen: pygame.Surface, button2: Button, button3: Button):
     write(screen, "directory", (0, 0, 0), 50, 150, 100)
     button2.update()
     button3.update()
+    # mbutton.music_running()
 
 def draw_input(screen: pygame.Surface, rose_box: InputBox, bud_box: InputBox, thorn_box: InputBox, mood_box: InputBox, submit_button: Button):
     screen.fill("#fcb7b7")
@@ -49,10 +50,10 @@ def draw_input(screen: pygame.Surface, rose_box: InputBox, bud_box: InputBox, th
     thorn_box.draw(screen)
     mood_box.draw(screen)
 
-def draw_garden(screen, Flowers: list):
+def draw_garden(screen, flowers: list[Flower]):
     screen.fill("#ffffff")
-    for flower in Flowers:
-        flower.update
+    for flower in flowers:
+        flower.update()
     
 
 def main():
@@ -65,6 +66,7 @@ def main():
     button1 = Button("let's get started", screen, (255, 255, 255), 100, 250)
     button2 = Button("your garden", screen, (200, 200, 200), 30, 250)
     button3 = Button("rose, bud, thorn", screen, "#ffffff", 280, 250)
+    # mbutton = MusicButton()
     state = 0
     rose_box = InputBox(150, 80, 250, 30)
     bud_box = InputBox(150, 130, 250, 30)
@@ -72,7 +74,39 @@ def main():
     mood_box = InputBox(150, 230, 250, 30)
     submit_button = Button("submit", screen, (255, 255, 255), 250, 400)
     emotion_colors = {"happy": "#F88379", "sad": "#0047AB", "angered": "#8B0000", "excited": "#FFEA00", "calm":"#6F8FAF", "annoyed":"#AA4A44", "nervous": "#AFE1AF", "bored":"#B2BEB5"}
-    flower1 = None
+    
+    flowers = []
+    if os.path.exists("stored_rose_box_text.pkl"):
+        with open("stored_rose_box_text.pkl", "rb") as f:
+            rose_data = pickle.load(f)
+    else:
+        rose_data = []
+    if len(rose_data) > 7:
+        rose_data = rose_data[-6:]
+
+    if os.path.exists("stored_bud_box_text.pkl"):
+        with open("stored_bud_box_text.pkl", "rb") as f:
+            bud_data = pickle.load(f)
+    else:
+        bud_data = []
+    if len(bud_data) > 7:
+        bud_data = bud_data[-6:]
+
+    if os.path.exists("stored_thorn_box_text.pkl"):
+        with open("stored_thorn_box_text.pkl", "rb") as f:
+            thorn_data = pickle.load(f)
+    else:
+        thorn_data = []
+    if len(thorn_data) > 7:
+        thorn_data = thorn_data[-6:]
+
+    if os.path.exists("stored_mood_box_text.pkl"):
+        with open("stored_mood_box_text.pkl", "rb") as f:
+            mood_data = pickle.load(f)
+    else:
+        mood_data = []
+    if len(mood_data) > 7:
+        mood_data = mood_data[-6:]
 
     while True:
         for event in pygame.event.get():
@@ -90,65 +124,36 @@ def main():
                         state = 3
                     if button3.point_inside(x, y):
                         state = 2
-                elif state == 3:
-                    if flower.point_inside(x, y):
-                        state = 4
-                        if os.path.exists("stored_rose_box_text.pkl"):
-                            with open("stored_rose_box_text.pkl", "rb") as f:
-                                data1 = pickle.load(f)
-                        else:
-                            data1 = []
-                        if len(data1) > 7:
-                            data1 = data1[-6:]
-                        data1.append(rose_box.text)
-                        print(data1[0])
-                        with open("stored_rose_box_text.pkl", "wb") as f:
-                            pickle.dump(data1, f)
-
-                        if os.path.exists("stored_bud_box_text.pkl"):
-                            with open("stored_bud_box_text.pkl", "rb") as f:
-                                data2 = pickle.load(f)
-                        else:
-                            data2 = []
-                        if len(data2) > 7:
-                            data2 = data2[-6:]
-                        data2.append(bud_box.text)
-                        print(data2[0])
-                        with open("stored_bud_box_text.pkl", "wb") as f:
-                            pickle.dump(data2, f)
-                        
-                        if os.path.exists("stored_thorn_box_text.pkl"):
-                            with open("stored_thorn_box_text.pkl", "rb") as f:
-                                data3 = pickle.load(f)
-                        else:
-                            data3 = []
-                        if len(data3) > 7:
-                            data3 = data3[-6:]
-                        data3.append(thorn_box.text)
-                        print(data3[0])
-                        with open("stored_thorn_box_text.pkl", "wb") as f:
-                            pickle.dump(data3, f)
-                        
-                        if os.path.exists("stored_mood_box_text.pkl"):
-                            with open("stored_mood_box_text.pkl", "rb") as f:
-                                data4 = pickle.load(f)
-                        else:
-                            data4 = []
-                        if len(data4) > 7:
-                            data4 = data4[-6:]
-                        data4.append(thorn_box.text)
-                        print(data4[0])
-                        with open("stored_mood_box_text.pkl", "wb") as f:
-                            pickle.dump(data4, f)
+                # elif state == 3:
+                #     if flower.point_inside(x, y):
+                #         state = 4
                         
             if state == 2:
                 rose_box.handle_event(event)
                 bud_box.handle_event(event)
                 thorn_box.handle_event(event)
                 mood_box.handle_event(event)
-                if submit_button.point_inside(x, y):
-                    if mood_box.text in emotion_colors:
-                        flower in Flowers = Flower(30, 30, screen, emotion_colors[mood_box.text], 100, 100)
+                if submit_button.point_inside(x, y) and mood_box.text in emotion_colors:
+                    rose_data.append(rose_box.text)
+                    with open("stored_rose_box_text.pkl", "wb") as f:
+                        pickle.dump(rose_data, f)
+
+                    bud_data.append(bud_box.text)
+                    with open("stored_bud_box_text.pkl", "wb") as f:
+                        pickle.dump(bud_data, f)
+                    
+                    thorn_data.append(thorn_box.text)
+                    with open("stored_thorn_box_text.pkl", "wb") as f:
+                        pickle.dump(thorn_data, f)
+                    
+                    mood_data.append(mood_box.text)
+                    with open("stored_mood_box_text.pkl", "wb") as f:
+                        pickle.dump(mood_data, f)
+                    for i in range(len(mood_data)):
+                        color = emotion_colors[mood_data[i]]
+                        f = Flower(30, 30, screen, color, i*20, 50)
+                        flowers.append(f)
+                    
                     state = 3
             
                 
@@ -160,7 +165,7 @@ def main():
         elif state == 2:
             draw_input(screen, rose_box, bud_box, thorn_box, mood_box, submit_button)
         elif state == 3:
-            draw_garden(screen, flower1)
+            draw_garden(screen, flowers)
         elif state == 4:
             screen.fill("#000000")
     
