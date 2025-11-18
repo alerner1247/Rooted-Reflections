@@ -126,6 +126,11 @@ def main():
                         state = 2
                     if mbutton.point_inside(x, y):
                         pygame.mixer.music.play() 
+                elif state == 3:
+                    for f in flowers:
+                        if f.point_inside(x, y):
+                            state = 4
+
 
             if state == 2:
                 rose_box.handle_event(event)
@@ -150,7 +155,7 @@ def main():
                         pickle.dump(mood_data, f)
                     for i in range(len(mood_data)):
                         color = emotion_colors[mood_data[i]]
-                        f = Flower(30, 30, screen, color, i*20, 50)
+                        f = Flower(30, 30, screen, color, (i % 4)*130 + 70, (i // 4) * 140 + 100)
                         flowers.append(f)
                     
                     state = 3
