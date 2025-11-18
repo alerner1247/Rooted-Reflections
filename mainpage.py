@@ -56,7 +56,6 @@ def draw_garden(screen, flowers: list[Flower]):
     for flower in flowers:
         flower.update()
     
-
 def main():
     fps = 60
     fps_clock = pygame.time.Clock()
@@ -67,7 +66,7 @@ def main():
     button1 = Button("let's get started", screen, (255, 255, 255), 100, 250)
     button2 = Button("your garden", screen, (200, 200, 200), 30, 250)
     button3 = Button("rose, bud, thorn", screen, "#ffffff", 280, 250)
-    mbutton = MusicButton(screen)
+    mbutton = MusicButton(screen, 250, 300, 100, 50)
     state = 0
     rose_box = InputBox(150, 80, 250, 30)
     bud_box = InputBox(150, 130, 250, 30)
@@ -125,10 +124,9 @@ def main():
                         state = 3
                     if button3.point_inside(x, y):
                         state = 2
-                # elif state == 3:
-                #     if flower.point_inside(x, y):
-                #         state = 4
-                        
+                    if mbutton.point_inside(x, y):
+                        pygame.mixer.music.play() 
+
             if state == 2:
                 rose_box.handle_event(event)
                 bud_box.handle_event(event)
