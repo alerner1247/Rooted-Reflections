@@ -17,7 +17,7 @@ class MusicButton():
         self.font = pygame.font.Font(None, 40)
 
 
-        pygame.mixer.music.load("/Users/priscillalu/Downloads/lofi.mp3")
+        pygame.mixer.music.load("lofi.mp3")
 
     def music_running(self):
             pygame.draw.rect(self.screen, self.pink, self.button_rect, border_radius = 10)

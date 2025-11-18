@@ -33,7 +33,7 @@ def draw_input(screen: pygame.Surface, rose_box: InputBox, bud_box: InputBox, th
 
     font = pygame.font.Font("Vanilla Pancake.ttf", 18)
     
-    title_font = pygame.font.Font("Vanilla Pancake.ttf", 28, bold=True)
+    title_font = pygame.font.Font("Vanilla Pancake.ttf", 28)
     title_text = title_font.render("Reflect on your day:", True, (0, 0, 0))
     screen.blit(title_text, (130, 30))
 
@@ -66,7 +66,7 @@ def main():
     button1 = Button("let's get started", screen, (255, 255, 255), 100, 250)
     button2 = Button("your garden", screen, (200, 200, 200), 30, 250)
     button3 = Button("rose, bud, thorn", screen, "#ffffff", 280, 250)
-    mbutton = MusicButton(screen, 250, 300, 100, 50)
+    mbutton = MusicButton(screen, 250, 400, 200, 100)
     state = 0
     rose_box = InputBox(150, 80, 250, 30)
     bud_box = InputBox(150, 130, 250, 30)
@@ -162,7 +162,7 @@ def main():
         elif state == 1:
             draw_directory(screen, button2, button3, mbutton)
         elif state == 2:
-            draw_input(screen, rose_box, bud_box, thorn_box, mood_box, submit_button, mbutton)
+            draw_input(screen, rose_box, bud_box, thorn_box, mood_box, submit_button)
         elif state == 3:
             draw_garden(screen, flowers)
         elif state == 4:
