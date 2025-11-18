@@ -17,21 +17,22 @@ def draw(screen: pygame.Surface, button1: Button):
     button1.update()
 
 
-def draw_directory(screen: pygame.Surface, button2: Button, button3: Button):
+def draw_directory(screen: pygame.Surface, button2: Button, button3: Button, mbutton: MusicButton):
     screen.fill("#fcb7b7")
     pygame.display.set_caption("Rooted Reflections")
     write(screen, "directory", (0, 0, 0), 50, 150, 100)
     button2.update()
     button3.update()
-    # mbutton.music_running()
+    mbutton.music_running()
+
 
 def draw_input(screen: pygame.Surface, rose_box: InputBox, bud_box: InputBox, thorn_box: InputBox, mood_box: InputBox, submit_button: Button):
     screen.fill("#fcb7b7")
     pygame.display.set_caption("Rooted Reflections")
 
-    font = pygame.font.SysFont("Arial", 18)
+    font = pygame.font.Font("Vanilla Pancake.ttf", 18)
     
-    title_font = pygame.font.SysFont("Arial", 28, bold=True)
+    title_font = pygame.font.Font("Vanilla Pancake.ttf", 28, bold=True)
     title_text = title_font.render("Reflect on your day:", True, (0, 0, 0))
     screen.blit(title_text, (130, 30))
 
@@ -65,7 +66,7 @@ def main():
     button1 = Button("let's get started", screen, (255, 255, 255), 100, 250)
     button2 = Button("your garden", screen, (200, 200, 200), 30, 250)
     button3 = Button("rose, bud, thorn", screen, "#ffffff", 280, 250)
-    # mbutton = MusicButton()
+    mbutton = MusicButton(screen)
     state = 0
     rose_box = InputBox(150, 80, 250, 30)
     bud_box = InputBox(150, 130, 250, 30)
@@ -160,9 +161,9 @@ def main():
         if state == 0:
             draw(screen, button1)
         elif state == 1:
-            draw_directory(screen, button2, button3)
+            draw_directory(screen, button2, button3, mbutton)
         elif state == 2:
-            draw_input(screen, rose_box, bud_box, thorn_box, mood_box, submit_button)
+            draw_input(screen, rose_box, bud_box, thorn_box, mood_box, submit_button, mbutton)
         elif state == 3:
             draw_garden(screen, flowers)
         elif state == 4:
