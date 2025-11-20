@@ -42,9 +42,6 @@ class InputBox:
             screen.blit(txt_surface, (self.rect.x + 5, self.rect.y + 5))
 
 
-
-
-
 def main():
     # Input boxes
     rose_box = InputBox(150, 80, 250, 30)

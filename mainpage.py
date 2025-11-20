@@ -7,9 +7,10 @@ from data_input import InputBox
 from garden import Flower
 from music import MusicButton
 import pickle
-import os 
+import os
 
 pygame.init()
+
 
 def draw(screen: pygame.Surface, button1: Button):
     screen.fill("#fcb7b7")
@@ -18,7 +19,9 @@ def draw(screen: pygame.Surface, button1: Button):
     button1.update()
 
 
-def draw_directory(screen: pygame.Surface, button2: Button, button3: Button, mbutton: MusicButton):
+def draw_directory(
+    screen: pygame.Surface, button2: Button, button3: Button, mbutton: MusicButton
+):
     screen.fill("#fcb7b7")
     pygame.display.set_caption("Rooted Reflections")
     write(screen, "directory", (0, 0, 0), 50, 150, 100)
@@ -27,12 +30,19 @@ def draw_directory(screen: pygame.Surface, button2: Button, button3: Button, mbu
     mbutton.music_running()
 
 
-def draw_input(screen: pygame.Surface, rose_box: InputBox, bud_box: InputBox, thorn_box: InputBox, mood_box: InputBox, submit_button: Button):
+def draw_input(
+    screen: pygame.Surface,
+    rose_box: InputBox,
+    bud_box: InputBox,
+    thorn_box: InputBox,
+    mood_box: InputBox,
+    submit_button: Button,
+):
     screen.fill("#fcb7b7")
     pygame.display.set_caption("Rooted Reflections")
 
     font = pygame.font.Font("Vanilla Pancake.ttf", 18)
-    
+
     title_font = pygame.font.Font("Vanilla Pancake.ttf", 28)
     title_text = title_font.render("Reflect on your day:", True, (0, 0, 0))
     screen.blit(title_text, (130, 30))
@@ -41,36 +51,25 @@ def draw_input(screen: pygame.Surface, rose_box: InputBox, bud_box: InputBox, th
     screen.blit(font.render("Bud:", True, (0, 0, 0)), (80, 135))
     screen.blit(font.render("Thorn:", True, (0, 0, 0)), (80, 185))
     screen.blit(font.render("Mood: ", True, (0, 0, 0)), (80, 235))
-    screen.blit(font.render("(enter either happy, sad, angered, worried,", True, (0, 0, 0)), (80, 260))
-    screen.blit(font.render("overstimulated, excited,", True, (0, 0, 0)), (80, 285))
-    screen.blit(font.render("calm, annoyed, nervous, bored)", True, (0, 0, 0)), (80, 310))
-
+    screen.blit(
+        font.render("(enter either happy, sad, angered, worried,", True, (0, 0, 0)),
+        (80, 260),
+    )
+    screen.blit(
+        font.render("excited, calm, annoyed, nervous, bored)", True, (0, 0, 0)),
+        (80, 285),
+    )
     submit_button.update()
     rose_box.draw(screen)
     bud_box.draw(screen)
     thorn_box.draw(screen)
     mood_box.draw(screen)
 
-    
-    
-
 def draw_garden(screen, flowers: list[Flower]):
     screen.fill("#ffffff")
     for flower in flowers:
         flower.update()
     
-def back_button():
-    back = Button("Back to directory", screen, (255,255,255), 100, 250) 
-
-
-
-
-
-
-
-
-
-
 def main():
     fps = 60
     fps_clock = pygame.time.Clock()
@@ -88,8 +87,18 @@ def main():
     thorn_box = InputBox(150, 180, 250, 30)
     mood_box = InputBox(150, 230, 250, 30)
     submit_button = Button("submit", screen, (255, 255, 255), 250, 400)
-    emotion_colors = {"happy": "#F88379", "sad": "#0047AB", "angered": "#8B0000", "excited": "#FFEA00", "calm":"#6F8FAF", "annoyed":"#AA4A44", "nervous": "#AFE1AF", "bored":"#B2BEB5"}
-    
+    emotion_colors = {
+        "happy": "#F88379",
+        "sad": "#0047AB",
+        "worried": "#90D5FF",
+        "angered": "#8B0000",
+        "excited": "#FFEA00",
+        "calm": "#6F8FAF",
+        "annoyed": "#AA4A44",
+        "nervous": "#AFE1AF",
+        "bored": "#B2BEB5",
+    }
+
     flowers = []
     if os.path.exists("stored_rose_box_text.pkl"):
         with open("stored_rose_box_text.pkl", "rb") as f:
@@ -123,12 +132,14 @@ def main():
     if len(mood_data) > 7:
         mood_data = mood_data[-6:]
 
+    selected_flower = -1
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.locals.QUIT:
                 pygame.quit()
                 sys.exit()
-           
+            
             elif event.type == pygame.locals.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 if state == 0:
@@ -140,7 +151,12 @@ def main():
                     if button3.point_inside(x, y):
                         state = 2
                     if mbutton.point_inside(x, y):
-                        pygame.mixer.music.play() 
+                        pygame.mixer.music.play()
+                elif state == 3:
+                    for i in range(len(flowers)):
+                        if flowers[i].point_inside(x, y):
+                            selected_flower = i
+                            state = 4
 
             if state == 2:
                 rose_box.handle_event(event)
@@ -155,23 +171,28 @@ def main():
                     bud_data.append(bud_box.text)
                     with open("stored_bud_box_text.pkl", "wb") as f:
                         pickle.dump(bud_data, f)
-                    
+
                     thorn_data.append(thorn_box.text)
                     with open("stored_thorn_box_text.pkl", "wb") as f:
                         pickle.dump(thorn_data, f)
-                    
+
                     mood_data.append(mood_box.text)
                     with open("stored_mood_box_text.pkl", "wb") as f:
                         pickle.dump(mood_data, f)
                     for i in range(len(mood_data)):
                         color = emotion_colors[mood_data[i]]
-                        f = Flower(30, 30, screen, color, i*20, 50)
+                        f = Flower(
+                            30,
+                            30,
+                            screen,
+                            color,
+                            (i % 4) * 130 + 70,
+                            (i // 4) * 140 + 100,
+                        )
                         flowers.append(f)
-                    
+
                     state = 3
-            
-                
-                
+
         if state == 0:
             draw(screen, button1)
         elif state == 1:
@@ -181,9 +202,10 @@ def main():
         elif state == 3:
             draw_garden(screen, flowers)
         elif state == 4:
-            screen.fill("#000000")
-    
-
+            rose_box_output = rose_data[selected_flower]
+            bud_box_output = bud_data[selected_flower]
+            thorn_box_output = thorn_data[selected_flower]
+            draw_output(screen, rose_box_output, bud_box_output, thorn_box_output)
 
         pygame.display.flip()
         fps_clock.tick(fps)
