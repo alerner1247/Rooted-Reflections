@@ -51,11 +51,26 @@ def draw_input(screen: pygame.Surface, rose_box: InputBox, bud_box: InputBox, th
     thorn_box.draw(screen)
     mood_box.draw(screen)
 
+    
+    
+
 def draw_garden(screen, flowers: list[Flower]):
     screen.fill("#ffffff")
     for flower in flowers:
         flower.update()
     
+def back_button():
+    back = Button("Back to directory", screen, (255,255,255), 100, 250) 
+
+
+
+
+
+
+
+
+
+
 def main():
     fps = 60
     fps_clock = pygame.time.Clock()
@@ -113,7 +128,7 @@ def main():
             if event.type == pygame.locals.QUIT:
                 pygame.quit()
                 sys.exit()
-            
+           
             elif event.type == pygame.locals.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 if state == 0:
