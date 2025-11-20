@@ -6,6 +6,7 @@ import pygame.locals
 
 pygame.init()
 
+
 class Flower:
     def __init__(
         self,
@@ -25,32 +26,24 @@ class Flower:
 
     def update(self):
         for i in range(6):
-            degrees = i * 360/6
+            degrees = i * 360 / 6
             radians = math.radians(degrees)
             x = self.r_center * math.cos(radians) + self.x
             y = self.r_center * math.sin(radians) + self.y
-            pygame.draw.circle(
-                self.surface,
-                self.color,
-                (x, y),
-                self.r_petal
-            )
-        pygame.draw.circle(
-            self.surface, 
-            "#FFEA00", 
-            (self.x, self.y),
-            self.r_center
-        )
-    
+            pygame.draw.circle(self.surface, self.color, (x, y), self.r_petal)
+        pygame.draw.circle(self.surface, "#FFEA00", (self.x, self.y), self.r_center)
+
     def point_inside(self, x: float, y: float) -> bool:
-        if self.x - self.r_center < self.x < self.x + self.r_center and self.y - self.r_center < self.y < self.y + self.r_center:
-            return True
-        else:
-            return False
+        return (
+            self.x - self.r_center < x < self.x + self.r_center
+            and self.y - self.r_center < y < self.y + self.r_center
+        )
+
 
 def draw(screen: pygame.Surface, flower_1: Flower):
     screen.fill("#000000")
     flower_1.update()
+
 
 def main():
     fps = 60
