@@ -65,11 +65,12 @@ def draw_input(
     thorn_box.draw(screen)
     mood_box.draw(screen)
 
-def draw_garden(screen, flowers: list[Flower]):
+def draw_garden(screen, flowers: list[Flower], back_button: Button):
     screen.fill("#ffffff")
     for flower in flowers:
         flower.update()
-    
+    back_button.update()
+
 def main():
     fps = 60
     fps_clock = pygame.time.Clock()
@@ -81,6 +82,8 @@ def main():
     button2 = Button("your garden", screen, (200, 200, 200), 30, 250)
     button3 = Button("rose, bud, thorn", screen, "#ffffff", 280, 250)
     mbutton = MusicButton(screen, 250, 400, 200, 100)
+    back_button = Button("back", screen, (200, 200, 200), 350, 350)
+
     state = 0
     rose_box = InputBox(150, 80, 250, 30)
     bud_box = InputBox(150, 130, 250, 30)
@@ -153,6 +156,8 @@ def main():
                     if mbutton.point_inside(x, y):
                         pygame.mixer.music.play()
                 elif state == 3:
+                    if back_button.point_inside(x, y):
+                        state = 1
                     for i in range(len(flowers)):
                         if flowers[i].point_inside(x, y):
                             selected_flower = i
@@ -200,7 +205,7 @@ def main():
         elif state == 2:
             draw_input(screen, rose_box, bud_box, thorn_box, mood_box, submit_button)
         elif state == 3:
-            draw_garden(screen, flowers)
+            draw_garden(screen, flowers, back_button)
         elif state == 4:
             rose_box_output = rose_data[selected_flower]
             bud_box_output = bud_data[selected_flower]
