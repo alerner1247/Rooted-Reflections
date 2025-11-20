@@ -127,7 +127,7 @@ def main():
             rose_data = pickle.load(f)
     else:
         rose_data = []
-    if (len(rose_data)) > 7:
+    if (len(rose_data)) >= 7:
         rose_data = rose_data[-6:]
 
     if os.path.exists("stored_bud_box_text.pkl"):
@@ -135,7 +135,7 @@ def main():
             bud_data = pickle.load(f)
     else:
         bud_data = []
-    if (len(bud_data)) > 7:
+    if (len(bud_data)) >= 7:
         rose_data = rose_data[-6:]
 
     if os.path.exists("stored_thorn_box_text.pkl"):
@@ -143,7 +143,7 @@ def main():
             thorn_data = pickle.load(f)
     else:
         thorn_data = []
-    if (len(thorn_data)) > 7:
+    if (len(thorn_data)) >= 7:
         thorn_data = thorn_data[-6:]
 
     if os.path.exists("stored_mood_box_text.pkl"):
@@ -151,6 +151,8 @@ def main():
             mood_data = pickle.load(f)
     else:
         mood_data = []
+    if (len(mood_data)) >= 7:
+        mood_data = mood_data[-6:]
 
     for i in range(len(mood_data)):
         color = emotion_colors[mood_data[i]]
@@ -194,7 +196,8 @@ def main():
                     for i in range(len(flowers)):
                         if flowers[i].point_inside(x, y):
                             selected_flower = i
-                            state = 4   
+                            state = 4
+                            break
                     
                 
                 elif state == 4:
@@ -222,6 +225,8 @@ def main():
                     mood_data.append(mood_box.text)
                     with open("stored_mood_box_text.pkl", "wb") as f:
                         pickle.dump(mood_data, f)
+                    
+                    flowers = []
                     for i in range(len(mood_data)):
                         color = emotion_colors[mood_data[i]]
                         f = Flower(
