@@ -67,6 +67,7 @@ def draw_input(
     thorn_box.draw(screen)
     mood_box.draw(screen)
 
+
 def draw_garden(screen, flowers: list[Flower], back_button: Button):
     screen.fill("#ffffff")
     for flower in flowers:
@@ -171,7 +172,7 @@ def main():
             if event.type == pygame.locals.QUIT:
                 pygame.quit()
                 sys.exit()
-            
+
             elif event.type == pygame.locals.MOUSEBUTTONDOWN:
                 x, y = pygame.mouse.get_pos()
                 if state == 0:
